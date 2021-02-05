@@ -10,15 +10,18 @@ class GoodMood(QWidget):
         super().__init__()
         uic.loadUi('UI.ui', self)
         self.btn.clicked.connect(self.draw)
+        self.drawing = False
 
     def paintEvent(self, event):
-        qp = QPainter(self)
-        qp.setPen(QColor(255, 255, 0))
-        r = randint(0, min(self.window().width(), self.window().height())) // 2
-        qp.drawEllipse(randint(0, self.window().width() - 2 * r),
-                       randint(0, self.window().height() - 2 * r), r, r)
+        if self.drawing:
+            qp = QPainter(self)
+            qp.setPen(QColor(255, 255, 0))
+            r = randint(0, min(self.window().width(), self.window().height())) // 2
+            qp.drawEllipse(randint(0, self.window().width() - 2 * r),
+                           randint(0, self.window().height() - 2 * r), r, r)
 
     def draw(self):
+        self.drawing = True
         self.repaint()
 
 
